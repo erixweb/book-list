@@ -1,20 +1,27 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+import Navigation from "../components/navigation.svelte"
 import "../styles/index.css"
 
 interface Props {
-    title: string
+	title: string
 }
 
 const { title } = Astro.props
 ---
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-</head>
-<body class="text-white font-sans bg-neutral-800">
-    <slot />
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+        <ViewTransitions />
+	</head>
+	<body class="text-white font-sans bg-neutral-800 w-full">
+        <Navigation />
+		<main class="w-full max-w-[70em]">
+			<slot />
+		</main>
+	</body>
 </html>

@@ -1,0 +1,16 @@
+---
+import PageLayout from "../../layouts/page-layout.astro"
+import BookSelector from "../../components/book-selector.svelte"
+import json from "../../json/books.json"
+
+const { book } = Astro.params
+const books =  json["library"]
+const page = books.find((page) => page.book.href === book)
+
+if (!page) return Astro.redirect('/404')
+---
+<PageLayout title={`Book List | ${page.book.title}`}>
+    <BookSelector 
+        book={page}
+    />
+</PageLayout>
