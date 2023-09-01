@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ViewTransitions } from "astro:transitions"
 import Navigation from "../components/navigation.svelte"
 import "../styles/index.css"
 
@@ -16,10 +16,29 @@ const { title } = Astro.props
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{title}</title>
-        <ViewTransitions />
+		<ViewTransitions />
+		<script defer>
+			const Lazy = (target) => {
+				const io = new IntersectionObserver((entries, observer) => {
+					entries.forEach((entry) => {
+						let elementName = entry.target.nodeName.toLocaleLowerCase()
+						if (entry.isIntersecting && elementName === "img") {
+							const img = entry.target
+							img.setAttribute("src", img.getAttribute("data-src"))
+							img.classList.add("fade")
+							observer.disconnect()
+						}
+					})
+				})
+				io.observe(target)
+			}
+			document.addEventListener("astro:page-load", () => {
+				document.querySelectorAll("img").forEach(Lazy)
+			})
+		</script>
 	</head>
 	<body class="text-white font-sans bg-neutral-800 w-full">
-        <Navigation />
+		<Navigation />
 		<main class="w-full max-w-[70em]">
 			<slot />
 		</main>
