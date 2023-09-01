@@ -1,8 +1,13 @@
-<script lang="ts">
+---
+	import ButtonAdd from "./button-add.svelte";
 	import type { Library } from "../types"
 
-	export let book: Library
-</script>
+	interface Props {
+		book: Library
+	}
+
+	const { book } = Astro.props
+---
 
 <div class="flex flex-wrap p-[20px]">
 	<div class="ml-[0px] text-center">
@@ -46,12 +51,16 @@
 		<div>
 			<h2 class="text-[22px] font-bold my-[20px]">Del mismo autor</h2>
 			<ul>
-				{#each book.book.author.otherBooks as otherBook}
+				{book.book.author.otherBooks.map((otherBook => (
 					<li class="mb-[5px]">
 						{otherBook}
 					</li>
-				{/each}
+				)))}
 			</ul>
 		</div>
+		<ButtonAdd 
+			id={book.book.ISBN}
+			client:load
+		/>
 	</div>
 </div>
