@@ -1,20 +1,24 @@
 <script lang="ts">
-    export let id: any
+	import { ERROR_RETURN, Try } from "../try"
 
-    let addedBooks: any
+	export let id: any
+
+	let addedBooks: any
     let currentBook: any
 
-    if (typeof window !== "undefined") {
-        addedBooks = JSON.parse(localStorage.getItem("books-list")!)
-    }
+	if (typeof window !== "undefined") {
+		addedBooks = Try(() => JSON.parse(localStorage.getItem("books-list")!)) || []
+        if (addedBooks !== ERROR_RETURN) {
+            currentBook = addedBooks.find((element: any) => element.id === id)
+        }
+	}
+	function addBook() {
+		if (!currentBook) {
+            addedBooks.push({id})
+            localStorage.setItem("books-list", JSON.stringify(addedBooks))
+            currentBook = true
+        }
+	}
+</script>
 
-    function addBook () {
-        if (addedBooks) {
-            currentBook = [addedBooks].find((element: any) => element.id === id)
-        }
-        if (!currentBook) {
-            localStorage.setItem("books-list", JSON.stringify([JSON.stringify(addedBooks) + { id }]))
-        }
-    }
-    </script>
 <button on:click={addBook}> Añadir </button>
