@@ -1,9 +1,11 @@
 ---
 import PageLayout from "../layouts/page-layout.astro"
-import BooksList from "../components/books-list.svelte"
 import books from "../json/books.json"
+import BooksReadList from "../components/books-read-list.svelte";
 ---
 
 <PageLayout title="Book List">
-	<BooksList {books} />
+	<BooksReadList
+		client:load
+	/>
 </PageLayout>
