@@ -24,6 +24,7 @@ const { title } = Astro.props
 						let elementName = entry.target.nodeName.toLocaleLowerCase()
 						if (entry.isIntersecting && elementName === "img") {
 							const img = entry.target
+							if (!img.getAttribute("data-src")) return
 							img.setAttribute("src", img.getAttribute("data-src"))
 							img.classList.add("fade")
 							observer.disconnect()
