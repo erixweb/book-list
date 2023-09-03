@@ -19,12 +19,16 @@
 </script>
 
 <div class="flex flex-wrap mt-[20px] gap-[20px] p-[20px] w-full">
-	{#if booksData}
+	{#if booksData && booksData.length > 0}
 		{#each booksData as book}
 			<BookLink 
 				{book}
 				lazy={false}
 			/>
 		{/each}
+	{:else}
+		<h2 class="font-bold text-[20px]">
+			Aún no has guardado ningún libro
+		</h2>
 	{/if}
 </div>

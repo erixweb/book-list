@@ -21,12 +21,14 @@
 	}
 	function deleteBook() {
 		if (currentBook) {
-			addedBooks.find((element: any) => element.id === id)
+			addedBooks.splice(addedBooks.findIndex((element: any) => element.id === id), 1)
+			currentBook = false
+			localStorage.setItem("books-list", JSON.stringify(addedBooks))
 		}
 	}
 </script>
 
-{#if typeof currentBook === "undefined"}
+{#if typeof currentBook === "undefined" || currentBook === false}
 	<button 
 		class="p-[10px] px-[25px] bg-sky-500 rounded-[15px] mt-[20px]"
 		on:click={addBook}>
@@ -35,7 +37,7 @@
 {:else}
 	<button 
 		class="p-[10px] px-[25px] bg-red-600 rounded-[15px] mt-[20px]"
-		on:click={addBook}>
+		on:click={deleteBook}>
 		Eliminar
 	</button>
 {/if}
