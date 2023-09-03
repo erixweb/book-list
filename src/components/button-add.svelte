@@ -6,11 +6,20 @@
 	let addedBooks: any
 	let currentBook: any
 
-	if (typeof window !== "undefined") {
+	function findBookState () {
 		addedBooks = Try(() => JSON.parse(localStorage.getItem("books-list")!)) || []
 		if (addedBooks !== ERROR_RETURN) {
 			currentBook = addedBooks.find((element: any) => element.id === id)
 		}
+	}
+
+	if (typeof window !== "undefined") {
+		findBookState()
+		window.addEventListener("storage", (e) => {
+			if (e.key !== "books-list") return
+
+			findBookState()
+		})
 	}
 	function addBook() {
 		if (!currentBook) {
