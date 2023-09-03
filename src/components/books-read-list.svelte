@@ -21,7 +21,10 @@
 <div class="flex flex-wrap mt-[20px] gap-[20px] p-[20px] w-full">
 	{#if booksData}
 		{#each booksData as book}
-			<BookLink {book} />
+			<BookLink 
+				{book}
+				lazy={false}
+			/>
 		{/each}
 	{/if}
 </div>
