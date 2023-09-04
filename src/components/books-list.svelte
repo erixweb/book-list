@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Library } from "../types"
 	import BookLink from "./book-link.svelte"
+	import FiltersForm from "./filters-form.svelte"
 
 	export let books: any
 	export let url: URL
@@ -28,6 +29,7 @@
 
 </script>
 
+<FiltersForm minpages={filter.minpages} maxpages={filter.maxpages} name={filter.name} />
 <div class="flex flex-wrap mt-[20px] gap-[20px] p-[20px] w-full">
 	{#each booksFilter as book}
 		<BookLink 
