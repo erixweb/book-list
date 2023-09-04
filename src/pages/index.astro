@@ -5,5 +5,8 @@ import books from "../json/books.json"
 ---
 
 <PageLayout title="Book List">
-	<BooksList {books} />
+	<BooksList 
+	url={Astro.url}
+	{books}
+	/>
 </PageLayout>
